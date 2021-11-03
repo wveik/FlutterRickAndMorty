@@ -17,8 +17,9 @@ class PersonEntity extends Equatable {
   final List<String> episode;
   final DateTime created;
 
-  PersonEntity({required this.name,
-      required this.id,
+  PersonEntity(
+      {required this.id,
+      required this.name,
       required this.status,
       required this.species,
       required this.type,
