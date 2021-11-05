@@ -14,48 +14,48 @@ import 'feature/presentation/bloc/search_bloc/search_bloc.dart';
 
 import 'package:http/http.dart' as http;
 
-final sl = GetIt.instance;
+final serviceLocator = GetIt.instance;
 
 Future<void> init() async {
   // BLoC / Cubit
-  sl.registerFactory(
-        () => PersonListCubit(getAllPersons: sl()),
+  serviceLocator.registerFactory(
+        () => PersonListCubit(getAllPersons: serviceLocator()),
   );
-  sl.registerFactory(
-        () => PersonSearchBloc(searchPerson: sl()),
+  serviceLocator.registerFactory(
+        () => PersonSearchBloc(searchPerson: serviceLocator()),
   );
 
   // UseCases
-  sl.registerLazySingleton(() => GetAllPersons(sl()));
-  sl.registerLazySingleton(() => SearchPerson(sl()));
+  serviceLocator.registerLazySingleton(() => GetAllPersons(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => SearchPerson(serviceLocator()));
 
   // Repository
-  sl.registerLazySingleton<PersonRepository>(
+  serviceLocator.registerLazySingleton<PersonRepository>(
         () => PersonRepositoryImpl(
-      remoteDataSource: sl(),
-      localDataSource: sl(),
-      networkInfo: sl(),
+      remoteDataSource: serviceLocator(),
+      localDataSource: serviceLocator(),
+      networkInfo: serviceLocator(),
     ),
   );
 
-  sl.registerLazySingleton<PersonRemoteDataSource>(
+  serviceLocator.registerLazySingleton<PersonRemoteDataSource>(
         () => PersonRemoteDataSourceImpl(
-      client: sl(),
+      client: serviceLocator(),
     ),
   );
 
-  sl.registerLazySingleton<PersonLocalDataSource>(
-        () => PersonLocalDataSourceImpl(sharedPreferences: sl()),
+  serviceLocator.registerLazySingleton<PersonLocalDataSource>(
+        () => PersonLocalDataSourceImpl(sharedPreferences: serviceLocator()),
   );
 
   // Core
-  sl.registerLazySingleton<NetworkInfo>(
-        () => NetworkInfoImp(sl()),
+  serviceLocator.registerLazySingleton<NetworkInfo>(
+        () => NetworkInfoImp(serviceLocator()),
   );
 
   // External
-  final  sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  final sharedPreferences = await SharedPreferences.getInstance();
+  serviceLocator.registerLazySingleton(() => sharedPreferences);
+  serviceLocator.registerLazySingleton(() => http.Client());
+  serviceLocator.registerLazySingleton(() => InternetConnectionChecker());
 }
