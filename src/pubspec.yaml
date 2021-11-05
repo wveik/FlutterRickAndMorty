@@ -37,6 +37,8 @@ dependencies:
   internet_connection_checker: ^0.0.1
   # ЛОКАЛЬНЫЙ КЕШ
   shared_preferences: ^2.0.0
+  # BLOC
+  flutter_bloc: ^7.0.0
 
 dev_dependencies:
   flutter_test:
