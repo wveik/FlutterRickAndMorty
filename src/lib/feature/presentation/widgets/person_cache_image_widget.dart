@@ -39,7 +39,7 @@ class PersonCacheImage extends StatelessWidget {
       },
       errorWidget: (context, url, error) {
         return _imageWidget(
-          AssetImage('assets/images/noimage.jpg'),
+          AssetImage('assets/images/no_image.jpg'),
         );
       },
     );
